@@ -8,6 +8,7 @@ import { type UserProfile } from '@/types/models';
 type AuthStore = {
   user: UserProfile | null;
   onboardingDone: boolean;
+  hydrated: boolean;
   loading: boolean;
   setOnboardingDone: () => void;
   login: (email: string, password: string) => Promise<void>;
@@ -26,6 +27,7 @@ export const useAuthStore = create<AuthStore>()(
     (set) => ({
       user: null,
       onboardingDone: false,
+      hydrated: false,
       loading: false,
       setOnboardingDone: () => set({ onboardingDone: true }),
       login: async (email, password) => {
@@ -69,6 +71,11 @@ export const useAuthStore = create<AuthStore>()(
       name: 'securesense-auth',
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => ({ user: state.user, onboardingDone: state.onboardingDone }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.hydrated = true;
+        }
+      },
     },
   ),
 );

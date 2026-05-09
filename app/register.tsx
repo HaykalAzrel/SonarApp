@@ -16,7 +16,7 @@ import { useAuthStore } from '@/store/auth-store';
 const schema = z
   .object({
     fullName: z.string().min(2, 'Enter full name'),
-    email: z.email('Enter valid email'),
+    email: z.string().email('Enter valid email'),
     password: z.string().min(8, 'Min 8 characters'),
     confirmPassword: z.string().min(8, 'Min 8 characters'),
   })

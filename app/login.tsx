@@ -15,7 +15,7 @@ import { useTheme } from '@/hooks/use-theme';
 import { useAuthStore } from '@/store/auth-store';
 
 const schema = z.object({
-  email: z.email('Enter valid email'),
+  email: z.string().email('Enter valid email'),
   password: z.string().min(6, 'Password min 6 chars'),
 });
 
